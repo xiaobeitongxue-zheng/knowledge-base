@@ -230,6 +230,9 @@ const updateRoleChart = () => {
   
   loading.roleChart = true
   
+  // 清空当前图表
+  charts.roleChart.clear()
+  
   // 饼图配置
   const pieOption = {
     title: {
@@ -245,6 +248,8 @@ const updateRoleChart = () => {
       bottom: 10,
       data: roleDistributionData.map(item => item.name)
     },
+    xAxis: roleChartType.value === 'pie' ? undefined : {},
+    yAxis: roleChartType.value === 'pie' ? undefined : {},
     series: [
       {
         name: '角色',
@@ -311,7 +316,7 @@ const updateRoleChart = () => {
   }
   
   // 根据选择的图表类型设置配置
-  charts.roleChart.setOption(roleChartType.value === 'pie' ? pieOption : barOption)
+  charts.roleChart.setOption(roleChartType.value === 'pie' ? pieOption : barOption, true)
   setTimeout(() => {
     loading.roleChart = false
   }, 500)
@@ -322,6 +327,9 @@ const updateDocChart = () => {
   if (!charts.docChart) return
   
   loading.docChart = true
+  
+  // 清空当前图表
+  charts.docChart.clear()
   
   // 饼图配置
   const pieOption = {
@@ -338,6 +346,8 @@ const updateDocChart = () => {
       bottom: 10,
       data: knowledgeDocumentsData.map(item => item.name)
     },
+    xAxis: docChartType.value === 'pie' ? undefined : {},
+    yAxis: docChartType.value === 'pie' ? undefined : {},
     series: [
       {
         name: '文档',
@@ -404,7 +414,7 @@ const updateDocChart = () => {
   }
   
   // 根据选择的图表类型设置配置
-  charts.docChart.setOption(docChartType.value === 'pie' ? pieOption : barOption)
+  charts.docChart.setOption(docChartType.value === 'pie' ? pieOption : barOption, true)
   setTimeout(() => {
     loading.docChart = false
   }, 500)
