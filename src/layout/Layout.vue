@@ -21,7 +21,7 @@
           <!-- 知识检索 -->
           <el-menu-item index="/search">
             <el-icon><Search /></el-icon>
-            <span>知识检索</span>
+            <span>知识问答</span>
           </el-menu-item>
 
           <!-- 知识管理 -->

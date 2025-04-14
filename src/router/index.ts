@@ -123,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'search',
         name: 'KnowledgeSearch',
-        component: () => import('../views/search/index.vue'),
+        component: () => import('../views/ai/index.vue'),
         meta: { title: '知识检索', icon: 'Search' }
       },
       {

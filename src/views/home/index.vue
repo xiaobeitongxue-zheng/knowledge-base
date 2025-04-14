@@ -123,8 +123,8 @@ const quickActions = ref([
     path: '/summary'
   },
   {
-    title: '知识检索',
-    description: '快速查找所需信息',
+    title: '知识问答',
+    description: '生成式AI助手',
     icon: 'Search',
     path: '/search'
   },
