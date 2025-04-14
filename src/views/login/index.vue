@@ -4,8 +4,18 @@
       <div class="login-header">
         <h2>欢迎登录企业知识库系统</h2>
       </div>
-      
-      <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
+        
+        <el-form-item prop="username">
+          <el-input 
+            v-model="loginForm.username"
+            placeholder="用户名"
+            prefix-icon="User"
+            clearable
+            style="height: 34px;"
+          />
+        </el-form-item>
+        
+        <el-form ref="loginFormRef" :model="loginForm" :rules="loginRules" class="login-form">
         <el-form-item prop="password">
           <el-input
             v-model="loginForm.password"
@@ -18,17 +28,7 @@
             style="height: 34px;"
           />
         </el-form-item>
-        
-        <el-form-item prop="username">
-          <el-input 
-            v-model="loginForm.username"
-            placeholder="用户名"
-            prefix-icon="User"
-            clearable
-            style="height: 34px;"
-          />
-        </el-form-item>
-        
+
         <el-form-item>
           <div class="captcha-section">
             <img :src="captchaUrl" alt="验证码" class="captcha-image" @click="refreshCaptcha" style="width: 60px; height: 34px; object-fit: contain;" />
