@@ -1,7 +1,15 @@
 <template>
   <div class="chat-history-container">
     <div class="history-header">
-      <h3>历史对话记录</h3>
+      <div class="left-section">
+        <el-button 
+          type="text" 
+          :icon="ArrowLeft" 
+          @click="closeHistory"
+          class="back-button"
+        />
+        <h3>历史对话记录</h3>
+      </div>
       <div class="header-actions">
         <el-tooltip content="删除所有历史" placement="top">
           <el-button 
@@ -73,12 +81,17 @@
 <script lang="ts" setup>
 import { ref, computed, defineEmits, defineProps } from 'vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
-import { Delete, Edit, Timer } from '@element-plus/icons-vue'
+import { Delete, Edit, Timer, ArrowLeft } from '@element-plus/icons-vue'
 
 // 定义属性
 const props = defineProps({
   histories: {
-    type: Array,
+    type: Array as () => Array<{
+      id: string;
+      title?: string;
+      date: string;
+      messages: Array<any>;
+    }>,
     default: () => []
   },
   selectedHistoryIndex: {
@@ -88,7 +101,7 @@ const props = defineProps({
 })
 
 // 定义事件
-const emit = defineEmits(['select', 'delete', 'rename', 'clear-all'])
+const emit = defineEmits(['select', 'delete', 'rename', 'clear-all', 'close'])
 
 // 重命名相关状态
 const renameDialogVisible = ref(false)
@@ -186,13 +199,18 @@ const confirmClearAllHistory = () => {
     })
   }).catch(() => {})
 }
+
+// 关闭历史记录侧边栏
+const closeHistory = () => {
+  emit('close')
+}
 </script>
 
 <style scoped>
 .chat-history-container {
   height: 100%;
   border-right: 1px solid #ebeef5;
-  padding: 15px;
+  padding: 15px 10px;
 }
 
 .history-header {
@@ -204,7 +222,7 @@ const confirmClearAllHistory = () => {
 
 .history-header h3 {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 
@@ -226,7 +244,7 @@ const confirmClearAllHistory = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 15px;
+  padding: 8px 10px;
   border-radius: 6px;
   background-color: #f9f9f9;
   cursor: pointer;
@@ -251,24 +269,24 @@ const confirmClearAllHistory = () => {
 }
 
 .history-date {
-  font-size: 12px;
+  font-size: 11px;
   color: #909399;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .history-question {
-  font-size: 14px;
+  font-size: 13px;
   color: #303133;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding-right: 10px;
+  padding-right: 5px;
 }
 
 /* 操作按钮样式 */
 .history-actions {
   display: flex;
-  gap: 8px;
+  gap: 4px;
   opacity: 0;
   transition: opacity 0.2s;
 }
@@ -281,5 +299,21 @@ const confirmClearAllHistory = () => {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+}
+
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.back-button {
+  padding: 0;
+  margin: 0;
+  background: none;
+  border: none;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
 }
 </style>

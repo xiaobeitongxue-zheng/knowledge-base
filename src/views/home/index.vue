@@ -11,6 +11,7 @@
           @delete="deleteHistory"
           @rename="renameHistory"
           @clear-all="clearAllHistories"
+          @close="toggleHistorySidebar"
         />
       </div>
 
@@ -276,8 +277,10 @@ const toggleHistorySidebar = () => {
 
 // 开始新对话
 const startNewChat = () => {
-  // 如果当前对话有内容，保存为历史
-  saveCurrentChatAsHistory()
+  // 只有当当前对话有内容时，才保存为历史
+  if (chatMessages.value.length > 0) {
+    saveCurrentChatAsHistory()
+  }
   
   // 清空当前对话
   chatMessages.value = []
@@ -319,6 +322,11 @@ const saveCurrentChatAsHistory = () => {
 
 // 加载历史对话
 const loadHistory = (index: number) => {
+  // 如果点击的是当前正在查看的历史记录，则不做任何操作
+  if (currentHistoryIndex.value === index) {
+    return;
+  }
+  
   // 先保存当前对话
   if (currentHistoryIndex.value !== index && chatMessages.value.length > 0) {
     saveCurrentChatAsHistory()
@@ -1248,7 +1256,7 @@ const regenerateAnswer = (index: number) => {
 
 /* 历史侧边栏样式 */
 .history-sidebar {
-  width: 280px;
+  width: 230px;
   height: 100%;
   transition: width 0.3s;
   overflow: hidden;
