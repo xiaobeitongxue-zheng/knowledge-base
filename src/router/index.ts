@@ -86,31 +86,16 @@ const routes: Array<RouteRecordRaw> = [
             meta: { title: '团队管理' }
           },
           {
+            path: 'knowledge',
+            name: 'TeamKnowledge',
+            component: () => import('../views/team/knowledge/index.vue'),
+            meta: { title: '团队知识库' }
+          },
+          {
             path: 'statistics',
             name: 'TeamStatistics',
             component: () => import('../views/team/statistics/index.vue'),
             meta: { title: '团队统计' }
-          }
-        ]
-      },
-      {
-        path: 'knowledge',
-        name: 'KnowledgeService',
-        component: () => import('../views/knowledge/index.vue'),
-        meta: { title: '知识服务', icon: 'Document' },
-        redirect: '/knowledge/management',
-        children: [
-          {
-            path: 'management',
-            name: 'KnowledgeManagement',
-            component: () => import('../views/knowledge/management/index.vue'),
-            meta: { title: '知识管理' }
-          },
-          {
-            path: 'browse',
-            name: 'KnowledgeBrowse',
-            component: () => import('../views/knowledge/browse/index.vue'),
-            meta: { title: '知识浏览' }
           }
         ]
       },
@@ -121,10 +106,10 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: '社区服务', icon: 'ChatDotRound' }
       },
       {
-        path: 'search',
-        name: 'KnowledgeSearch',
-        component: () => import('../views/ai/index.vue'),
-        meta: { title: '知识检索', icon: 'Search' }
+        path: 'personal',
+        name: 'PersonalKnowledgeBase',
+        component: () => import('../views/personal/index.vue'),
+        meta: { title: '个人知识库', icon: 'Promotion' }
       },
       {
         path: 'summary',

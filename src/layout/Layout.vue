@@ -18,48 +18,41 @@
           router
           @click="showScrollbar = true"
         >
-          <!-- 知识检索 -->
-          <el-menu-item index="/search">
-            <el-icon><Search /></el-icon>
-            <span>知识问答</span>
-          </el-menu-item>
-
-          <!-- 知识管理 -->
-          <el-sub-menu index="/knowledge">
-            <template #title>
-              <el-icon><Document /></el-icon>
-              <span>知识管理</span>
-            </template>
-            <el-menu-item index="/knowledge/browse">浏览知识库</el-menu-item>
-            <el-menu-item index="/knowledge/management">管理知识文档</el-menu-item>
-          </el-sub-menu>
+         
           
-          <!-- 文档摘要 -->
-          <el-menu-item index="/summary">
-            <el-icon><Reading /></el-icon>
-            <span>文档摘要</span>
+          <!-- 个人知识库管理 -->
+          <el-menu-item index="/personal">
+            <el-icon><UserFilled /></el-icon>
+            <span>个人知识库</span>
           </el-menu-item>
           
           <!-- 团队协作 -->
           <el-sub-menu index="/team">
             <template #title>
-              <el-icon><UserFilled /></el-icon>
+              <el-icon><Service /></el-icon>
               <span>团队协作</span>
             </template>
+            <el-menu-item index="/team/knowledge">团队知识库</el-menu-item>
             <el-menu-item index="/team/management">团队管理</el-menu-item>
             <el-menu-item index="/team/statistics">团队统计</el-menu-item>
           </el-sub-menu>
+
+           <!-- 社区交流 -->
+           <el-menu-item index="/community">
+            <el-icon><Promotion /></el-icon>
+            <span>社区交流</span>
+          </el-menu-item>
           
           <!-- 消息中心 -->
           <el-menu-item index="/message">
             <el-icon><ChatLineRound /></el-icon>
             <span>消息中心</span>
           </el-menu-item>
-          
-          <!-- 社区交流 -->
-          <el-menu-item index="/community">
-            <el-icon><Promotion /></el-icon>
-            <span>社区交流</span>
+
+          <!-- 文档摘要 -->
+          <el-menu-item index="/summary">
+            <el-icon><Reading /></el-icon>
+            <span>文档摘要</span>
           </el-menu-item>
           
           <!-- 文档存储 -->
@@ -74,6 +67,13 @@
             <span>版本管理</span>
           </el-menu-item>
           
+          
+          <!-- 数据统计 -->
+          <el-menu-item index="/statistics">
+            <el-icon><DataLine /></el-icon>
+            <span>数据统计</span>
+          </el-menu-item>
+
           <!-- 用户中心 -->
           <el-sub-menu index="/user">
             <template #title>
@@ -83,12 +83,6 @@
             <el-menu-item index="/user/management">用户管理</el-menu-item>
             <el-menu-item index="/user/permission">权限设置</el-menu-item>
           </el-sub-menu>
-          
-          <!-- 数据统计 -->
-          <el-menu-item index="/statistics">
-            <el-icon><DataLine /></el-icon>
-            <span>数据统计</span>
-          </el-menu-item>
         </el-menu>
       </el-scrollbar>
     </el-aside>
@@ -118,7 +112,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from './components/Navbar/index.vue'
 import FooterBar from './components/Footer/index.vue'
-import { Document, Reading, Search, UserFilled, ChatLineRound, Promotion, FolderOpened, Timer, User, DataLine } from '@element-plus/icons-vue'
+import { Document, Reading, Search, UserFilled, ChatLineRound, Promotion, FolderOpened, Timer, User, DataLine, Service } from '@element-plus/icons-vue'
 
 // 路由相关
 const route = useRoute()

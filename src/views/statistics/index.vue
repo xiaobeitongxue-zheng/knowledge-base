@@ -87,7 +87,7 @@
           <template #header>
             <div class="chart-header">
               <div class="chart-title">文档创建趋势</div>
-              <el-radio-group v-model="docChartRange" size="small">
+              <el-radio-group v-model="docChartRange" size="small" class="chart-radio-group">
                 <el-radio-button label="week">本周</el-radio-button>
                 <el-radio-button label="month">本月</el-radio-button>
                 <el-radio-button label="year">本年</el-radio-button>
@@ -102,7 +102,7 @@
           <template #header>
             <div class="chart-header">
               <div class="chart-title">访问量统计</div>
-              <el-radio-group v-model="visitChartRange" size="small">
+              <el-radio-group v-model="visitChartRange" size="small" class="chart-radio-group">
                 <el-radio-button label="week">本周</el-radio-button>
                 <el-radio-button label="month">本月</el-radio-button>
                 <el-radio-button label="year">本年</el-radio-button>
@@ -389,32 +389,50 @@ const initCharts = () => {
   const docTypeChartInstance = echarts.init(docTypeChart.value as unknown as HTMLDivElement)
   docTypeChartInstance.setOption({
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
+      formatter: '{a} <br/>{b}: {c} ({d}%)'
     },
     legend: {
-      orient: 'vertical',
-      right: 10,
-      top: 'center'
+      type: 'plain',
+      orient: 'horizontal',
+      top: '5%',
+      left: 'center',
+      itemGap: 15,
+      itemWidth: 14,
+      itemHeight: 14,
+      textStyle: {
+        fontSize: 12
+      },
+      formatter: function(name: string) {
+        return name.length > 6 ? name.slice(0, 6) + '...' : name;
+      }
+    },
+    grid: {
+      top: 60
     },
     series: [
       {
         name: '文档类型',
         type: 'pie',
-        radius: ['40%', '70%'],
-        avoidLabelOverlap: false,
+        radius: ['35%', '60%'],
+        center: ['50%', '55%'],
+        avoidLabelOverlap: true,
         itemStyle: {
           borderRadius: 10,
           borderColor: '#fff',
           borderWidth: 2
         },
         label: {
-          show: false,
-          position: 'center'
+          show: true,
+          position: 'inside',
+          formatter: '{b}\n{d}%',
+          fontSize: 12,
+          color: '#fff'
         },
         emphasis: {
           label: {
             show: true,
-            fontSize: 12,
+            fontSize: 14,
             fontWeight: 'bold'
           }
         },
@@ -687,5 +705,14 @@ onMounted(() => {
   margin-top: 20px;
   display: flex;
   justify-content: center;
+}
+
+.chart-radio-group {
+  transform: scale(0.9);
+  transform-origin: right center;
+}
+
+:deep(.chart-radio-group .el-radio-button__inner) {
+  padding: 6px 10px;
 }
 </style>

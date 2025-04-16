@@ -263,4 +263,12 @@ const deleteDocument = (id: number) => {
 .search-form {
   margin-bottom: 20px;
 }
+
+:deep(.el-input) {
+  width: 260px;
+}
+
+:deep(.el-select) {
+  width: 180px;
+}
 </style>

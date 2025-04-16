@@ -236,13 +236,20 @@ const cancelEdit = () => {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+ 
+
+  margin: 0 auto;
+ 
+  overflow: hidden;
 }
 
 .avatar-preview img {
-  max-width: 200px;
-  max-height: 200px;
-  border-radius: 100px;
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 1px solid #f4f4f7;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .buttons-container {

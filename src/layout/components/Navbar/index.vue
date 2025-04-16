@@ -5,6 +5,13 @@
       <span class="navbar-title" @click="goToHome">返回首页</span>
     </div>
     <div class="navbar-right">
+      <!-- 通知铃铛 -->
+      <div class="notification-bell" @click="goToMessage">
+        <el-badge :value="unreadCount" :hidden="unreadCount === 0" :max="99" class="notification-badge">
+          <el-icon class="bell-icon"><Bell /></el-icon>
+        </el-badge>
+      </div>
+      
       <el-icon class="fullscreen-icon" @click="toggleFullscreen">
         <FullScreen />
       </el-icon>
@@ -25,12 +32,17 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessage, ElAvatar } from 'element-plus';
 import userStore from '@/store/user';
-import { HomeFilled, FullScreen } from '@element-plus/icons-vue';
+import messageStore from '@/store/message';
+import { HomeFilled, FullScreen, Bell } from '@element-plus/icons-vue';
 
 const router = useRouter();
+
+// 获取未读消息数量
+const unreadCount = computed(() => messageStore.unreadCount.value);
 
 const goToProfile = () => {
   router.push('/profile'); // 修改跳转路径为个人中心页面
@@ -55,6 +67,11 @@ const toggleFullscreen = () => {
 
 const goToHome = () => {
   router.push('/home');
+};
+
+// 前往消息页面
+const goToMessage = () => {
+  router.push('/message');
 };
 </script>
 
@@ -86,6 +103,42 @@ const goToHome = () => {
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+/* 通知铃铛样式 */
+.notification-bell {
+  position: relative;
+  cursor: pointer;
+}
+
+.bell-icon {
+  font-size: 20px;
+  color: #606266;
+  transition: color 0.3s;
+}
+
+.notification-bell:hover .bell-icon {
+  color: #409EFF;
+}
+
+/* 徽章样式 - 紧贴铃铛右上角 */
+:deep(.el-badge__content) {
+  background-color: #f56c6c;
+  border: none;
+}
+
+:deep(.notification-badge .el-badge__content.is-fixed) {
+  top: 0;
+  right: 0;
+  transform: translateY(-30%) translateX(25%);
+  z-index: 2;
+  font-size: 8px;
+  padding: 0;
+  height: 13px;
+  width: 13px;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 50%;
 }
 
 .el-dropdown-link {
