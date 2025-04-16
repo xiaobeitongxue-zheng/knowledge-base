@@ -1298,12 +1298,12 @@ const regenerateAnswer = (index: number) => {
 
 .welcome-header {
   text-align: center;
-  margin-bottom: -5px;
+  margin-bottom: -20px;
 }
 
 .welcome-header h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 5px;
   color: #303133;
 }
 
@@ -1473,7 +1473,7 @@ const regenerateAnswer = (index: number) => {
   display: flex;
   align-items: center;
   padding: 0 15px 15px;
-  border-top: 1px solid #f0f0f0;
+  border-top: none;
 }
 
 .option-label {
