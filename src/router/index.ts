@@ -140,6 +140,12 @@ const routes: Array<RouteRecordRaw> = [
         name: 'VersionManagement',
         component: () => import('../views/version/index.vue'),
         meta: { title: '版本管理', icon: 'Management' }
+      },
+      {
+        path: 'favorites',
+        name: 'Favorites',
+        component: () => import('../views/favorites/index.vue'),
+        meta: { title: '我的收藏', icon: 'Star' }
       }
     ]
   }

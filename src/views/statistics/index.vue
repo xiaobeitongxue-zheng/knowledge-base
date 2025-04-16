@@ -394,10 +394,10 @@ const initCharts = () => {
     },
     legend: {
       type: 'plain',
-      orient: 'horizontal',
-      top: '5%',
-      left: 'center',
-      itemGap: 15,
+      orient: 'vertical',
+      right: '5%',
+      top: 'middle',
+      itemGap: 10,
       itemWidth: 14,
       itemHeight: 14,
       textStyle: {
@@ -407,15 +407,12 @@ const initCharts = () => {
         return name.length > 6 ? name.slice(0, 6) + '...' : name;
       }
     },
-    grid: {
-      top: 60
-    },
     series: [
       {
         name: '文档类型',
         type: 'pie',
         radius: ['35%', '60%'],
-        center: ['50%', '55%'],
+        center: ['40%', '50%'],
         avoidLabelOverlap: true,
         itemStyle: {
           borderRadius: 10,
@@ -425,7 +422,7 @@ const initCharts = () => {
         label: {
           show: true,
           position: 'inside',
-          formatter: '{b}\n{d}%',
+          formatter: '{d}%',
           fontSize: 12,
           color: '#fff'
         },

@@ -178,7 +178,9 @@
               <el-tag v-if="doc.isImportant" size="small" type="danger" style="margin-left: 5px;">重要</el-tag>
             </div>
             <div class="document-card-actions">
-              <el-icon @click="toggleFavorite(doc)" :class="{ 'is-favorite': doc.isFavorite }"><Star /></el-icon>
+              <el-icon @click="toggleFavorite(doc)" :class="{ 'is-favorite': doc.isFavorite }">
+                <component :is="doc.isFavorite ? 'StarFilled' : 'Star'" />
+              </el-icon>
               <el-dropdown trigger="click">
                 <el-icon><MoreFilled /></el-icon>
                 <template #dropdown>
@@ -410,10 +412,11 @@ import type { FormInstance, FormRules } from 'element-plus'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import { useRouter, useRoute } from 'vue-router'
 import { 
-  Document, Reading, Search, User, Plus, Upload, Download, List, Grid, Link, View, Star, MoreFilled,
+  Document, Reading, Search, User, Plus, Upload, Download, List, Grid, Link, View, Star, StarFilled, MoreFilled,
   ArrowDown, UploadFilled, Share, Histogram, Setting
 } from '@element-plus/icons-vue'
 import userStore from '@/store/user'
+import { useFavoritesStore } from '@/store/modules/favorites'
 
 // 定义筛选表单类型
 interface FilterForm {
@@ -956,7 +959,30 @@ const copyShareLink = () => {
 // 切换收藏状态
 const toggleFavorite = (document: any) => {
   document.isFavorite = !document.isFavorite
-  ElMessage.success(document.isFavorite ? '文档已收藏' : '已取消收藏')
+  
+  if (document.isFavorite) {
+    // 添加到收藏
+    const favoriteItem = {
+      id: document.id,
+      title: document.title,
+      abstract: document.description || '暂无描述',
+      content: document.content || '',
+      category: document.category,
+      author: document.author,
+      source: 'team' as const,
+      sourceUrl: `/team/knowledge?id=${document.id}`,
+      tags: document.tags,
+      favoriteTime: new Date().toLocaleString()
+    }
+    
+    // 使用store添加收藏
+    favoritesStore.addFavorite(favoriteItem)
+    ElMessage.success('文档已收藏')
+  } else {
+    // 从收藏中移除
+    favoritesStore.removeFavorite(document.id, 'team')
+    ElMessage.success('已取消收藏')
+  }
 }
 
 // 下载文档
@@ -1084,6 +1110,8 @@ const fetchDocumentList = () => {
     loading.value = false
   }, 500)
 }
+
+const favoritesStore = useFavoritesStore()
 </script>
 
 <style scoped>

@@ -43,6 +43,12 @@
             <span>社区交流</span>
           </el-menu-item>
           
+          <!-- 我的收藏 -->
+          <el-menu-item index="/favorites">
+            <el-icon><Star /></el-icon>
+            <span>我的收藏</span>
+          </el-menu-item>
+          
           <!-- 消息中心 -->
           <el-menu-item index="/message">
             <el-icon><ChatLineRound /></el-icon>
@@ -112,7 +118,7 @@ import { ref, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import Navbar from './components/Navbar/index.vue'
 import FooterBar from './components/Footer/index.vue'
-import { Document, Reading, Search, UserFilled, ChatLineRound, Promotion, FolderOpened, Timer, User, DataLine, Service } from '@element-plus/icons-vue'
+import { Document, Reading, Search, UserFilled, ChatLineRound, Promotion, FolderOpened, Timer, User, DataLine, Service, Star } from '@element-plus/icons-vue'
 
 // 路由相关
 const route = useRoute()

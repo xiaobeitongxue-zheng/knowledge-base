@@ -182,7 +182,7 @@
               <el-tooltip content="历史会话" placement="top">
                 <el-button 
                   type="text" 
-                  :icon="Timer" 
+                  :icon="Clock" 
                   @click="toggleHistorySidebar"
                 />
               </el-tooltip>
@@ -201,7 +201,7 @@ import {
   Search, Document, User, ChatDotRound, Loading, 
   Position, Delete, Download, Link, Plus, List, CaretLeft, 
   CopyDocument, Edit, VideoPlay, Headset, CircleClose, Microphone, Refresh,
-  Timer
+  Clock
 } from '@element-plus/icons-vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import ChatHistory from '@/components/ai/ChatHistory.vue'

@@ -93,7 +93,9 @@
                 :class="{ 'is-active': post.collected }"
                 @click="toggleCollect(post)"
               >
-                <el-icon><Star /></el-icon>
+                <el-icon>
+                  <component :is="post.collected ? 'StarFilled' : 'Star'" />
+                </el-icon>
                 <span>{{ post.collectCount }}</span>
               </div>
             </div>
@@ -232,9 +234,10 @@ import { useRouter } from 'vue-router'
 import { ElMessage, ElMessageBox } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { 
-  EditPen, Search, View, ChatDotRound, Star, 
+  EditPen, Search, View, ChatDotRound, Star, StarFilled,
   Bell, User
 } from '@element-plus/icons-vue'
+import { useFavoritesStore } from '@/store/modules/favorites'
 
 const router = useRouter()
 
@@ -397,6 +400,8 @@ const postList = ref([
   }
 ])
 
+const favoritesStore = useFavoritesStore()
+
 // 处理标签页切换
 const handleTabClick = () => {
   loadPosts()
@@ -436,7 +441,30 @@ const toggleLike = (post: any) => {
 const toggleCollect = (post: any) => {
   post.collected = !post.collected
   post.collectCount += post.collected ? 1 : -1
-  ElMessage.success(post.collected ? '收藏成功' : '已取消收藏')
+  
+  if (post.collected) {
+    // 添加到收藏
+    const favoriteItem = {
+      id: post.id,
+      title: post.title,
+      abstract: post.summary,
+      content: post.content || '',
+      category: getCategoryLabel(post.category),
+      author: post.author.name,
+      source: 'community' as const,
+      sourceUrl: `/community/post/${post.id}`,
+      tags: post.tags,
+      favoriteTime: new Date().toLocaleString()
+    }
+    
+    // 使用store添加收藏
+    favoritesStore.addFavorite(favoriteItem)
+    ElMessage.success('收藏成功')
+  } else {
+    // 从收藏中移除
+    favoritesStore.removeFavorite(post.id, 'community')
+    ElMessage.success('已取消收藏')
+  }
 }
 
 // 按话题筛选
