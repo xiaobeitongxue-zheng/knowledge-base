@@ -390,29 +390,34 @@ const initCharts = () => {
   docTypeChartInstance.setOption({
     tooltip: {
       trigger: 'item',
-      formatter: '{a} <br/>{b}: {c} ({d}%)'
+      formatter: '{b}: {d}%',
+      position: 'inside',
+      confine: true,
+      textStyle: {
+        fontSize: 14
+      }
     },
     legend: {
       type: 'plain',
-      orient: 'vertical',
-      right: '5%',
-      top: 'middle',
-      itemGap: 10,
+      orient: 'horizontal',
+      top: '0%',
+      left: 'center',
+      itemGap: 15,
       itemWidth: 14,
       itemHeight: 14,
       textStyle: {
         fontSize: 12
-      },
-      formatter: function(name: string) {
-        return name.length > 6 ? name.slice(0, 6) + '...' : name;
       }
+    },
+    grid: {
+      top: '25%'
     },
     series: [
       {
         name: '文档类型',
         type: 'pie',
         radius: ['35%', '60%'],
-        center: ['40%', '50%'],
+        center: ['50%', '60%'],
         avoidLabelOverlap: true,
         itemStyle: {
           borderRadius: 10,
@@ -420,17 +425,16 @@ const initCharts = () => {
           borderWidth: 2
         },
         label: {
-          show: true,
-          position: 'inside',
-          formatter: '{d}%',
-          fontSize: 12,
-          color: '#fff'
+          show: false
         },
         emphasis: {
           label: {
-            show: true,
-            fontSize: 14,
-            fontWeight: 'bold'
+            show: false
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
           }
         },
         labelLine: {
@@ -479,7 +483,13 @@ const initCharts = () => {
   const summaryChartInstance = echarts.init(summaryChart.value as unknown as HTMLDivElement)
   summaryChartInstance.setOption({
     tooltip: {
-      trigger: 'item'
+      trigger: 'item',
+      formatter: '{b}: {d}%',
+      position: 'inside',
+      confine: true,
+      textStyle: {
+        fontSize: 14
+      }
     },
     legend: {
       top: '5%',
@@ -502,9 +512,12 @@ const initCharts = () => {
         },
         emphasis: {
           label: {
-            show: true,
-            fontSize: 16,
-            fontWeight: 'bold'
+            show: false
+          },
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
           }
         },
         labelLine: {
