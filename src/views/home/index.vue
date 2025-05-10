@@ -36,10 +36,10 @@
                   @click="useExampleQuestion(question)"
                 >
                   {{ question }}
-                </div>
-              </div>
-            </div>
           </div>
+        </div>
+      </div>
+    </div>
 
           <!-- 聊天消息列表 -->
           <div v-else class="message-list">
@@ -51,7 +51,7 @@
               <div class="message-content">
                 <div class="message-header">
                   
-                </div>
+            </div>
                 <div class="message-body" v-html="formatMessage(message.content)"></div>
                 
                 <!-- 用户问题的操作按钮 -->
@@ -74,7 +74,7 @@
                       <el-icon><Edit /></el-icon>
                     </el-button>
                   </el-tooltip>
-                </div>
+          </div>
                 
                 <!-- AI回答的操作按钮 -->
                 <div v-else class="message-actions">
@@ -107,7 +107,7 @@
                       <el-icon><Refresh /></el-icon>
                     </el-button>
                </el-tooltip>
-                </div>
+        </div>
                 
                 <div v-if="message.sources && message.sources.length > 0" class="message-sources">
                   <div class="sources-header">参考来源:</div>
@@ -129,7 +129,7 @@
           <div v-if="isLoading" class="loading-container">
             <el-icon class="loading-icon"><Loading /></el-icon>
             <span>思考中...</span>
-          </div>
+        </div>
         </div>
 
         <!-- 输入区域 -->
@@ -145,6 +145,20 @@
               @keyup.enter.exact="handleSendMessage"
             />
             <div class="send-button-container">
+              <el-dropdown trigger="click" @command="handleModelChange" class="model-selector">
+                <el-button type="default" size="small" class="model-button">
+                  <span>{{ currentModel }}</span>
+                  <el-icon class="el-icon--right"><arrow-down /></el-icon>
+                </el-button>
+                <template #dropdown>
+                  <el-dropdown-menu>
+                    <el-dropdown-item v-for="model in availableModels" :key="model.name" :command="model.name" :class="{ 'active-model': currentModel === model.name }">
+                      <el-icon v-if="model.isDefault"><Check /></el-icon>
+                      {{ model.name }}
+                    </el-dropdown-item>
+                  </el-dropdown-menu>
+      </template>
+              </el-dropdown>
               <el-button 
                 v-if="isLoading"
                 type="danger" 
@@ -202,7 +216,7 @@ import {
   Search, Document, User, ChatDotRound, Loading, 
   Position, Delete, Download, Link, Plus, List, CaretLeft, 
   CopyDocument, Edit, VideoPlay, Headset, CircleClose, Microphone, Refresh,
-  Clock
+  Clock, Check, ArrowDown
 } from '@element-plus/icons-vue'
 import { ElMessageBox, ElMessage } from 'element-plus'
 import ChatHistory from '@/components/ai/ChatHistory.vue'
@@ -882,8 +896,8 @@ const fetchKnowledgeByScope = async (question: string, scope: string) => {
     // 发生错误时使用备用模拟数据（与当前实现相同）
     const knowledgeMap = {
       personal: [
-        {
-          id: 1,
+  {
+    id: 1,
           title: '个人笔记：知识库系统架构',
           content: '我的知识库架构采用了前后端分离设计，前端使用Vue3+Element Plus，后端使用Spring Boot，数据库采用MongoDB存储非结构化文档。',
           relevance: 0.92,
@@ -892,16 +906,16 @@ const fetchKnowledgeByScope = async (question: string, scope: string) => {
         }
       ],
       team: [
-        {
-          id: 2,
+  {
+    id: 2,
           title: '团队文档：企业知识库系统设计方案',
           content: '企业知识库系统是集中存储、管理和共享组织知识资产的平台。构建一个有效的知识库系统需要考虑以下几个方面：\n\n1. 明确目标和需求\n2. 选择适当的技术架构\n3. 设计知识分类体系\n4. 实现搜索和检索功能\n5. 建立权限管理机制\n6. 集成AI技术',
           relevance: 0.95,
           source: 'team',
           sourceUrl: '/team/knowledge?id=2'
-        },
-        {
-          id: 3,
+  },
+  {
+    id: 3,
           title: '知识管理平台功能演示视频',
           content: '本视频详细介绍了我们团队开发的知识管理平台各模块功能，包括内容创建、智能分类、全文检索、版本控制等。',
           relevance: 0.85,
@@ -910,16 +924,16 @@ const fetchKnowledgeByScope = async (question: string, scope: string) => {
         }
       ],
       community: [
-        {
-          id: 4,
+  {
+    id: 4,
           title: '社区问答：如何提高团队知识共享效率？',
           content: '团队知识共享的最佳实践包括：\n\n1. 建立知识共享文化\n2. 选择合适的工具和平台\n3. 标准化流程和模板\n4. 定期知识交流活动\n5. 持续迭代和更新',
           relevance: 0.88,
           source: 'community',
           sourceUrl: '/community?id=4'
-        },
-        {
-          id: 5,
+  },
+  {
+    id: 5,
           title: '社区分享：基于深度学习的文本摘要算法研究',
           content: '文本摘要算法主要分为抽取式摘要和生成式摘要两大类。抽取式方法包括TF-IDF、TextRank等；生成式方法主要基于Seq2Seq、BERT等深度学习模型。',
           relevance: 0.91,
@@ -1239,6 +1253,21 @@ const regenerateAnswer = (index: number) => {
     handleSendMessage(userQuestion)
   }
 }
+
+// AI模型选择
+const currentModel = ref('Doubao-1.5-pro')
+const availableModels = ref([
+  { name: 'Doubao-1.5-pro', isDefault: true },
+  { name: 'DeepSeek-Reasoner', isDefault: false },
+  { name: 'DeepSeek-V3', isDefault: false },
+  { name: 'DeepSeek-V3-0324', isDefault: false }
+])
+
+// 切换AI模型
+const handleModelChange = (modelName: string) => {
+  currentModel.value = modelName
+  ElMessage.success(`已切换至 ${modelName} 模型`)
+}
 </script>
 
 <style scoped>
@@ -1475,6 +1504,9 @@ const regenerateAnswer = (index: number) => {
   position: absolute;
   right: 20px;
   bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .input-options {
@@ -1509,5 +1541,25 @@ const regenerateAnswer = (index: number) => {
 :deep(.el-radio-button__inner) {
   font-size: 16px;
   padding: 8px 15px;
+}
+
+.model-selector {
+  margin-right: 5px;
+}
+
+.model-button {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  font-size: 13px;
+  border-radius: 4px;
+  background-color: #f5f7fa;
+  border-color: #e4e7ed;
+}
+
+.active-model {
+  color: #409eff;
+  font-weight: 500;
+  background-color: #ecf5ff;
 }
 </style>

@@ -3606,6 +3606,11 @@ const filteredNonFavoriteDocuments1 = computed(() => {
   
   return nonFavorites
 })
+  
+  ElMessage.success('已添加到收藏')
+  // 切换到当前收藏标签页
+  favoritesTabActive.value = 'current'
+  
   // 实际应用中应调用API添加到收藏
 
 // 创建学习计划相关变量和方法

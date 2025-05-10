@@ -19,6 +19,11 @@
           @click="showScrollbar = true"
         >
          
+          <!-- AI助手 -->
+          <el-menu-item index="/home">
+            <el-icon><ChatLineRound /></el-icon>
+            <span>AI助手</span>
+          </el-menu-item>
           
           <!-- 个人知识库管理 -->
           <el-menu-item index="/personal">
@@ -41,43 +46,6 @@
            <el-menu-item index="/community">
             <el-icon><Promotion /></el-icon>
             <span>社区交流</span>
-          </el-menu-item>
-          
-          <!-- 我的收藏 -->
-          <el-menu-item index="/favorites">
-            <el-icon><Star /></el-icon>
-            <span>我的收藏</span>
-          </el-menu-item>
-          
-          <!-- 消息中心 -->
-          <el-menu-item index="/message">
-            <el-icon><ChatLineRound /></el-icon>
-            <span>消息中心</span>
-          </el-menu-item>
-
-          <!-- 文档摘要 -->
-          <el-menu-item index="/summary">
-            <el-icon><Reading /></el-icon>
-            <span>文档摘要</span>
-          </el-menu-item>
-          
-          <!-- 文档存储 -->
-          <el-menu-item index="/storage">
-            <el-icon><FolderOpened /></el-icon>
-            <span>文件存储</span>
-          </el-menu-item>
-          
-          <!-- 版本管理 -->
-          <el-menu-item index="/version">
-            <el-icon><Timer /></el-icon>
-            <span>版本管理</span>
-          </el-menu-item>
-          
-          
-          <!-- 数据统计 -->
-          <el-menu-item index="/statistics">
-            <el-icon><DataLine /></el-icon>
-            <span>数据统计</span>
           </el-menu-item>
 
           <!-- 用户中心 -->

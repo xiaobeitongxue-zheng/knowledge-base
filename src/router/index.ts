@@ -112,41 +112,11 @@ const routes: Array<RouteRecordRaw> = [
         meta: { title: '个人知识库', icon: 'Promotion' }
       },
       {
-        path: 'summary',
-        name: 'TextSummary',
-        component: () => import('../views/summary/index.vue'),
-        meta: { title: '文本摘要', icon: 'Document' }
-      },
-      {
-        path: 'statistics',
-        name: 'DataStatistics',
-        component: () => import('../views/statistics/index.vue'),
-        meta: { title: '数据统计', icon: 'DataLine' }
-      },
-      {
-        path: 'storage',
-        name: 'FileStorage',
-        component: () => import('../views/storage/index.vue'),
-        meta: { title: '文件存储', icon: 'FolderOpened' }
-      },
-      {
         path: 'message',
         name: 'MessageService',
         component: () => import('../views/message/index.vue'),
         meta: { title: '消息推送', icon: 'Message' }
       },
-      {
-        path: 'version',
-        name: 'VersionManagement',
-        component: () => import('../views/version/index.vue'),
-        meta: { title: '版本管理', icon: 'Management' }
-      },
-      {
-        path: 'favorites',
-        name: 'Favorites',
-        component: () => import('../views/favorites/index.vue'),
-        meta: { title: '我的收藏', icon: 'Star' }
-      }
     ]
   }
 ]
